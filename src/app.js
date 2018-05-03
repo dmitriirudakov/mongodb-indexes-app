@@ -1,7 +1,9 @@
+'use strict';
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const port = process.env.PORT || 8080; // set our port
+const port = process.env.PORT || 8080; // set app port
 const router = express.Router();
 
 // configure app to use bodyParser()

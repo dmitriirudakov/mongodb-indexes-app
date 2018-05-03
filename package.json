@@ -5,9 +5,13 @@
   "main": "./src/app.js",
   "scripts": {
     "start": "npm run babel-node",
-    "dev": "nodemon --exec npm run babel-node",
+    "dev": "nodemon --exec npm run lint && npm run babel-node",
     "babel-node": "babel-node -- ./src/app.js",
-    "build": "babel src -d dist"
+    "build": "babel src -d dist",
+    "eslint": "./node_modules/.bin/eslint",
+    "lint": "npm run eslint ./src/**.js",
+    "lint-html": "npm run eslint ./src/**.js -f html -o ./reports/lint-results.html",
+    "lint-fix": "npm run eslint --fix ./src/**/*.js"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -16,6 +20,11 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "eslint": "^4.19.1",
+    "eslint-plugin-node": "^6.0.1",
     "nodemon": "^1.17.3"
+  },
+  "engines": {
+    "node": ">=4.0.0"
   }
 }
