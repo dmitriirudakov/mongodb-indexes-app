@@ -3,10 +3,10 @@
 const express = require('express');
 const router = express.Router();
 
-router.use('/articles', require('./controllers/articles'));
-router.use('/rubrics', require('./controllers/rubrics'));
-router.use('/tags', require('./controllers/tags'));
-router.use('/users', require('./controllers/users'));
+router.use('/articles', require('./routing/articles'));
+router.use('/rubrics', require('./routing/rubrics'));
+router.use('/tags', require('./routing/tags'));
+router.use('/users', require('./routing/users'));
 
 router.get('/', function(req, res) {
 	res.send('Home page');

@@ -1,5 +1,9 @@
 'use strict';
 
+// Used to have es6 imports working correctly
+/* eslint-disable-next-line node/no-unpublished-require */
+require("babel-register");
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');

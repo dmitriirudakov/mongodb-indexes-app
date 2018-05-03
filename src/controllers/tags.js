@@ -1,28 +1,24 @@
 'use strict';
 
-const express = require('express');
-const router = express.Router();
+import CrudController from './crud';
 
-const entity = 'Tag';
+/* eslint-disable no-unused-vars */
+class Controller extends CrudController {
+	static get(id) {
+		return Promise.resolve(id);
+	}
+	static getAll() {
+		return Promise.resolve([]);
+	}
+	static update(id, body) {
+		return Promise.resolve(id);
+	}
+	static create(body) {
+		return Promise.resolve(body);
+	}
+	static delete(id) {
+		return Promise.resolve(id);
+	}
+}
 
-router.get('/', function(req, res) {
-	res.send([]);
-});
-
-router.get('/:id', function(req, res) {
-	res.send(entity);
-});
-
-router.put('/', function(req, res) {
-	res.send(entity + ' Created!');
-});
-
-router.post('/:id', function(req, res) {
-	res.send(entity + ' Updated!');
-});
-
-router.delete('/:id', function(req, res) {
-	res.send(entity + ' Removed!');
-});
-
-module.exports = router;
+module.exports = Controller;
