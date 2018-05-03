@@ -2,13 +2,18 @@
   "name": "mongodb-indexes-app",
   "version": "0.0.1",
   "description": "Simple NodeJS app to learn how to work with indexes in MongoDB",
-  "main": "./src/server.js",
+  "main": "./src/app.js",
   "scripts": {
-	"start" : "node ./src/server.js"
+    "start": "node ./src/app.js",
+    "dev": "nodemon ./src/app.js"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
     "graphql": "^0.13.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
   }
 }
