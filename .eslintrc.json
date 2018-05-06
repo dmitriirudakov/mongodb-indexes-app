@@ -9,10 +9,16 @@
     "rules": {
 		"node/exports-style": ["error", "module.exports"],
 		"no-console": "off",
+		"no-unused-vars": "warn",
 		"node/no-unsupported-features": "off"
 	},
 	"parserOptions": { 
 		"ecmaVersion": 2018,
-		"sourceType": "module"
-	}
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"modules": true,
+			"experimentalObjectRestSpread": true
+		}
+	}, 
+	"parser": "babel-eslint"
 }

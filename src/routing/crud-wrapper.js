@@ -15,10 +15,10 @@ module.exports.wrap = (router, controller) => {
 	});
 	
 	router.put('/', function(req, res) {
-		controller.creat(req.body)
+		controller.create(req.body)
 			.then(data => res.send(data));
 	});
-	
+
 	
 	router.post('/:id', function(req, res) {
 		controller.update(req.params.id, req.body)
