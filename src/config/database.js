@@ -6,16 +6,32 @@ import TagSchema from '../schemas/tag';
 const CONNECTION_STRING = `mongodb://localhost:27017/${DB_NAME}`;
 
 class Datebase {
-	
+	connectionString;
+
 	connect(connectionString = CONNECTION_STRING) {
-		console.log('connect');
-		mongoose.connect(connectionString)
+		this.connectionString = connectionString;
+		return new Promise((resolve, reject) => {
+			mongoose.connect(this.connectionString).then(() => {
+				console.log(`Succesfully connected to: ${this.connectionString}`);
+				resolve();
+			}).catch(() => {
+				console.log(`An error occured while connecting to: ${this.connectionString}`);
+				reject();
+			});
+		})
 	}
 
 	disconnect() {
-		console.log('disconnect');
 		const connection = mongoose.connection;
-		connection.close();
+		return new Promise((resolve, reject) => {
+			connection.close().then(() => {
+				console.log(`Succesfully disconnected from: ${this.connectionString}`);
+				resolve();
+			}).catch(() => {
+				console.log(`An error occured while disconnecting from: ${this.connectionString}`);
+				reject();
+			});
+		})
 	}
 }
 

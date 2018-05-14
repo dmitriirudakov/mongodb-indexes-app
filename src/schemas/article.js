@@ -5,7 +5,7 @@ import { SCHEMA_NAMES } from '../constants';
 const schema = new Schema({
 	authorId: { type: Schema.Types.ObjectId, required: true },
 	name: { type: String, required: true },
-	creationDate: { type: Number, default: Date.now() },
+	creationDate: { type: Number, default: Date.now },
 	content: String,
 	rubrics: [Schema.Types.ObjectId],
 	tags: [Schema.Types.ObjectId],
@@ -13,4 +13,4 @@ const schema = new Schema({
 	location: String
 });
 
-export default mongoose.model(SCHEMA_NAMES.ARTICLE, schema);
+export default mongoose.model(SCHEMA_NAMES.ARTICLES, schema);

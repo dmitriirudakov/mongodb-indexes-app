@@ -8,7 +8,7 @@ const schema = new Schema({
 	firstName: String,
 	lastName: String,
 	email: String,
-	registerDate: { type: Number, default: Date.now() }
+	registerDate: { type: Number, default: Date.now }
 });
 
 export default mongoose.model(SCHEMA_NAMES.USERS, schema);

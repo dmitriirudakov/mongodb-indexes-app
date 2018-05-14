@@ -6,6 +6,8 @@ require("babel-register");
 
 import express from 'express';
 import bodyParser from 'body-parser';
+
+import './app.cleanup';
 import db from './config/database';
 
 const app = express();
@@ -24,7 +26,4 @@ app.use(router);
 app.listen(port, async function() {
 	console.log(`Listening on port ${port}...`);
 	db.connect();
-	setTimeout(() => {
-		// db.disconnect();
-	}, 1000)
-})
+});
