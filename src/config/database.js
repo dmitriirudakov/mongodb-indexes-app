@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 
 import { DB_NAME } from '../constants';
-import TagSchema from '../schemas/tag';
 
 const CONNECTION_STRING = `mongodb://localhost:27017/${DB_NAME}`;
 
@@ -13,6 +12,7 @@ class Datebase {
 		return new Promise((resolve, reject) => {
 			mongoose.connect(this.connectionString).then(() => {
 				console.log(`Succesfully connected to: ${this.connectionString}`);
+				this.logAvailableIndexes();
 				resolve();
 			}).catch(() => {
 				console.log(`An error occured while connecting to: ${this.connectionString}`);
@@ -32,6 +32,16 @@ class Datebase {
 				reject();
 			});
 		})
+	}
+
+	logAvailableIndexes() {
+		console.log('\n === Indexes in DB ===')
+		const modelNames = mongoose.modelNames();
+		modelNames.forEach(modelName => {
+			const model = mongoose.model(modelName);
+			console.log(modelName, ':\n', model.schema.indexes());
+		})
+		console.log('\n')
 	}
 }
 

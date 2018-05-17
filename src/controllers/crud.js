@@ -1,27 +1,38 @@
 'use strict';
 
-import { Schema } from 'mongoose';
-
 class CrudController {
 
 	/**
-	 * Returns a specific schema for CRUD
-	 * @returns {Schema} Specific schema 
+	 * Returns a specific model for CRUD
+	 * @returns {Object} Specific model
 	 */
-	getSchema() {
+	getModel() {
 		throw new Error('You have to implement the method');
 	}
 
 	/**
 	 * Returns a specific item by id from a collection
 	 * @param {string} id 
+	 * @param {Object} query 
 	 * @returns {Promise} Result of execution
 	 */
-	get(id) {
-		const Schema = this.getSchema();
+	get(id, query) {
+		const Model = this.getModel()
+		let populate = [];
+
+		if (typeof query === 'object' && query.populate) {
+			if (typeof query.populate.split === 'function') {
+				populate = query.populate.split(',');
+			}
+			delete query.populate;
+		}
 
 		return new Promise((resolve, reject) => {
-			Schema.findById(id, (error, item) => {
+			const request = Model.findById(id);
+			populate.forEach(key => {
+				request.populate(key);
+			})
+			request.exec((error, item) => {
 					if (error) {
 						console.log(error);
 						reject(error);
@@ -30,28 +41,40 @@ class CrudController {
 						resolve(item);
 					}
 				}
-			)
+			);
 		})
 	}
 	/**
 	 * Returns all items of a collection
-	 * @param {Object} params
+	 * @param {Object} query
 	 * @returns {Promise} Result of execution
 	 */
-	getAll(params) {
-		const Schema = this.getSchema(params);
+	getAll(query) {
+		const Model = this.getModel()
 
 		// create regexp params to be able to find by regexp
 		const regexpParams = {};
+		let populate = [];
 
-		if (typeof params === 'object') {
-			Object.keys(params).forEach(key => {
-				regexpParams[key] = new RegExp(params[key]);
+		if (typeof query === 'object') {
+			if (query.populate) {
+				if (typeof query.populate.split === 'function') {
+					populate = query.populate.split(',');
+				}
+				delete query.populate;
+			}
+
+			Object.keys(query).forEach(key => {
+				regexpParams[key] = new RegExp(query[key]);
 			})
 		}
 
 		return new Promise((resolve, reject) => {
-			Schema.find(regexpParams, function(error, docs) {
+			const request = Model.find(regexpParams);
+			populate.forEach(key => {
+				request.populate(key);
+			})
+			request.exec(function(error, docs) {
 				if (error) {
 					console.log(error);
 					reject(error);
@@ -69,10 +92,10 @@ class CrudController {
 	 * @returns {Promise} Result of execution
 	 */
 	update(id, body) {
-		const Schema = this.getSchema();
+		const Model = this.getModel()
 
 		return new Promise((resolve, reject) => {
-			Schema.findByIdAndUpdate( id, body,
+			Model.findByIdAndUpdate( id, body,
 				// an option that asks mongoose to return the updated version 
 				// of the document instead of the pre-updated one.
 				{ new: true },
@@ -95,7 +118,7 @@ class CrudController {
 	 * @returns {Promise} Result of execution
 	 */
 	create(body) {
-		const Schema = this.getSchema();
+		const Model = this.getModel()
 		const doc = new Schema(body);
 
 		console.log(body);
@@ -118,10 +141,10 @@ class CrudController {
 	 * @returns {Promise} Result of execution
 	 */
 	delete(id) {
-		const Schema = this.getSchema();
+		const Model = this.getModel()
 
 		return new Promise((resolve, reject) => {
-			Schema.findByIdAndRemove(id, (error, item) => {
+			Model.findByIdAndRemove(id, (error, item) => {
 					if (error) {
 						console.log(error);
 						reject(error);

@@ -1,11 +1,11 @@
 'use strict';
 
-import { default as Schema } from '../schemas/user';
+import { default as Model } from '../models/user';
 import CrudController from './crud';
 
 class Controller extends CrudController {
-	getSchema() {
-		return Schema;
+	getModel() {
+		return Model;
 	}
 }
 

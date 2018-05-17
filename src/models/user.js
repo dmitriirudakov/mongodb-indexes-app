@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-import { SCHEMA_NAMES } from '../constants';
+import { MODEL_NAMES } from '../constants';
 
 const schema = new Schema({
 	login: { type: String, required: true },
@@ -11,4 +11,6 @@ const schema = new Schema({
 	registerDate: { type: Number, default: Date.now }
 });
 
-export default mongoose.model(SCHEMA_NAMES.USERS, schema);
+schema.index({ login: 1 });
+
+export default mongoose.model(MODEL_NAMES.USERS, schema);

@@ -11,7 +11,7 @@ module.exports.wrap = (router, controller) => {
 	});
 	
 	router.get('/:id', function(req, res) {
-		controller.get(req.params.id)
+		controller.get(req.params.id, req.query)
 			.then(data => res.send(data))
 			.catch(err => res.status(500).send(err));
 	});

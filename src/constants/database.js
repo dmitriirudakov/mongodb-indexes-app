@@ -1,6 +1,6 @@
 export const DB_NAME = 'mongodbIndexesApp';
 
-export const SCHEMA_NAMES = {
+export const MODEL_NAMES = {
 	ARTICLES: 'Articles',
 	TAGS: 'Tags',
 	USERS: 'Users',

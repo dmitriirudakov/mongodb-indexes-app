@@ -1,11 +1,11 @@
 'use strict';
 
-import { default as Schema } from '../schemas/rubric';
+import { default as Model } from '../models/rubric';
 import CrudController from './crud';
 
 class Controller extends CrudController {
-	getSchema() {
-		return Schema;
+	getModel() {
+		return Model;
 	}
 }
 
