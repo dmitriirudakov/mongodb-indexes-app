@@ -11,7 +11,7 @@ import './app.cleanup';
 import db from './config/database';
 
 const app = express();
-const port = process.env.PORT || 8080; // set app port
+const port = process.env.PORT || 3000; // set app port
 const router = express.Router();
 
 // configure app to use bodyParser()

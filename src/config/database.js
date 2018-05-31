@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 
 import { DB_NAME } from '../constants';
 
-const CONNECTION_STRING = `mongodb://localhost:27017/${DB_NAME}`;
+const DB_HOST = process.env.NODE_ENV === 'docker' ? 'database' : 'localhost';
+const CONNECTION_STRING = `mongodb://${DB_HOST}:27017/${DB_NAME}`;
 
 class Datebase {
 	connectionString;
